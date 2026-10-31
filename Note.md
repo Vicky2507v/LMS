@@ -10,8 +10,6 @@
 - deleteById
 - deleteByTitle
 - deleteByAuthor
-
-`Member APIs`
 - addMember
 - getAllMember
 - getMemberById
@@ -24,5 +22,4 @@
 - updateByName(String name, Member member)
 - updateByEmail(String email, Member member)
 - updateByPhone(String phone, Member member)
-
-*`update pending`*
+- global exception handled
