@@ -18,7 +18,7 @@
 - getMemberByPhone
 - deleteById
 - deleteByName 
-- updateById(long id, Member member)
+- updateById(long id, Long id)
 - updateByName(String name, Member member)
 - updateByEmail(String email, Member member)
 - updateByPhone(String phone, Member member)
