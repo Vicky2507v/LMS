@@ -18,14 +18,14 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping("/addMember")
-    public ResponseEntity<String> addNewMember(@Valid @RequestBody Member member){
+    public ResponseEntity<String> addNewMember(@Valid @RequestBody Member member) {
 
         boolean status = memberService.addMember(member);
 
         if(status) {
             return ResponseEntity.status(HttpStatus.CREATED).body("Member added successfully");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Member not added successfully");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Member not added, try again !!");
     }
 
     @GetMapping("/getAllMember")

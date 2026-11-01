@@ -19,19 +19,12 @@ public class MemberServiceImpl implements MemberService {
 
     public boolean addMember(Member member) {
 
-        if(member.getName() == null || member.getPhone()==null || member.getName().isEmpty() == true) {
+        if(member.getName() == null || member.getPhone()==null || member.getEmail() == null ||
+                member.getName().isEmpty()) {
             return false;
         }
 
         else if(member.getPhone().length()!=10 || ! member.getEmail().contains("@")) {
-            return false;
-        }
-
-        if (memberRepository.existsByEmail(member.getEmail())) {
-            return false;
-        }
-
-        if (memberRepository.existsByPhone(member.getPhone())) {
             return false;
         }
 
