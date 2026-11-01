@@ -17,6 +17,10 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     public List<Member> findByPhone(String phone);
     public List<Member> findByName(String email);
 
+    boolean existsByEmail(String email);
+
+    boolean existsByPhone(String phone);
+
     @Query("DELETE FROM Member m WHERE m.name = :name")
     @Modifying
     public int deleteByName(@Param("name") String name);

@@ -23,11 +23,20 @@ public class MemberServiceImpl implements MemberService {
             return false;
         }
 
-        else if(member.getPhone().length()==10 && member.getEmail().contains("@")) {
-            memberRepository.save(member);
-            return true;
+        else if(member.getPhone().length()!=10 || ! member.getEmail().contains("@")) {
+            return false;
         }
-        return false;
+
+        if (memberRepository.existsByEmail(member.getEmail())) {
+            return false;
+        }
+
+        if (memberRepository.existsByPhone(member.getPhone())) {
+            return false;
+        }
+
+        memberRepository.save(member);
+        return true;
     }
 
     public List<Member> getMembers() {

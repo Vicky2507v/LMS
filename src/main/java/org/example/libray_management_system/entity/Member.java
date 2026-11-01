@@ -1,6 +1,8 @@
 package org.example.libray_management_system.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Table(name = "members")
 @Entity
@@ -12,12 +14,16 @@ public class Member {
     private long id;
 
     @Column
+    @NotBlank(message = "Name cannot be empty")
     private String name;
 
-    @Column
+    @Column(unique = true)
+    @NotBlank(message = "Email cannot be empty")
+    @Email(message = "Please enter a valid email address")
     private String email;
 
-    @Column
+    @Column(unique = true)
+    @NotBlank(message = "Phone number cannot be empty")
     private String phone;
 
     public long getId() {
