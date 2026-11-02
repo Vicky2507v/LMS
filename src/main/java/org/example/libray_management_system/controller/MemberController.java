@@ -90,15 +90,15 @@ public class MemberController {
 
     }
 
-    @PutMapping("/updateMemberById/{id}")
+    @PatchMapping("/updateMemberById/{id}")
     public ResponseEntity<String> updateById(@PathVariable Long id, @RequestBody Member member) {
 
         boolean status = memberService.updateById(id, member);
 
         if(status) {
-            return ResponseEntity.status(HttpStatus.OK).body("Member updated successfully");
+            return ResponseEntity.ok("Member updated successfully");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not updated successfully");
+            return ResponseEntity.badRequest().body("Member not updated successfully");
         }
 
     }

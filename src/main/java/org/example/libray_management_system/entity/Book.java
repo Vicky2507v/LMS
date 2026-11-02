@@ -1,6 +1,8 @@
 package org.example.libray_management_system.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "books")
@@ -12,19 +14,21 @@ public class Book {
     Long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Book name can not be blank")
     String title;
 
     @Column(nullable = false)
     String author;
 
     @Column(nullable = false)
+    @NotBlank(message = "Category name can not be blank")
     String category;
 
-    @Min(0)
+    @Min(value = 0, message = "Quantity cannot be negative")
     @Column(nullable = false)
     int totalCopies;
 
-    @Min(0)
+    @Min(value = 0, message = "Quantity cannot be negative")
     @Column(nullable = false)
     int availableCopies;
 

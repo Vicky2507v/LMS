@@ -106,12 +106,20 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> optionalMember = memberRepository.findById(id);
 
         if(optionalMember.isEmpty()) {
-            throw new MemberNotFoundException(
-                    "Member not found with id: " + id
-            );
+            throw new MemberNotFoundException("Member not found with id: " + id);
         }
 
         Member existingMember = optionalMember.get();
+
+        // if email is already exists then it is false
+        if(member.getEmail()!=null && memberRepository.existsByEmailAndIdNot(member.getEmail(), id)) {
+            return false;
+        }
+
+        // if phone number is already exists then it is false
+        if(member.getPhone()!=null && memberRepository.existsByPhoneAndIdNot(member.getPhone(), id)) {
+            return false;
+        }
 
         if(member.getEmail()!=null) {
             existingMember.setEmail(member.getEmail());

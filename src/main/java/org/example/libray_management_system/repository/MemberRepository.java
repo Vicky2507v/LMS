@@ -24,4 +24,8 @@ public interface MemberRepository extends JpaRepository<Member,Long> {
     @Query("DELETE FROM Member m WHERE m.name = :name")
     @Modifying
     public int deleteByName(@Param("name") String name);
+
+    boolean existsByEmailAndIdNot(String email, Long id);
+    boolean existsByPhoneAndIdNot(String phone, Long id);
+
 }
