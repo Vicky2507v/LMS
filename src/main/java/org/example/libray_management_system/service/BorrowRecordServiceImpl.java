@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -106,4 +108,23 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
 
         return true;
     }
+
+    @Override
+    public List<BorrowRecord> getAllBorrowRecord() {
+
+        List<BorrowRecord> list = borrowRecordRepository.findAll();
+
+        return list;
+    }
+
+    @Override
+    public List<BorrowRecord> getAllBorrowRecordByMemberId(Long memberId) {
+        List<BorrowRecord> records = borrowRecordRepository.getBorrowRecordsByMemberId(memberId);
+        return records;
+    }
+
+    public List<BorrowRecord> getBorrowRecordsByBookId(Long bookId) {
+        return borrowRecordRepository.findByBook_Id(bookId);
+    }
+
 }
