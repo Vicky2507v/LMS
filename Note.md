@@ -23,4 +23,6 @@
 - updateByEmail(String email, Member member)
 - updateByPhone(String phone, Member member)
 - global exception handled
-- add unique validation in email & Phone 
+- add unique validation in email & Phone
+------
+- borrowRecordId() pending

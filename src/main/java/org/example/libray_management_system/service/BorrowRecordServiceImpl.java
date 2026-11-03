@@ -9,6 +9,7 @@ import org.example.libray_management_system.repository.BorrowRecordRepository;
 import org.example.libray_management_system.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -43,7 +44,7 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
         Member existingMember = optionalMember.get();
         Book existingBook = optionalBook.get();
 
-        if(existingBook.getAvailableCopies()<=0) {
+        if(existingBook.getAvailableCopies() <= 0) {
             return false;
         }
 
@@ -54,7 +55,7 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
         record.setMember(existingMember);
         record.setBook(existingBook);
         record.setIssueDate(LocalDate.now());
-        record.setIssueDate(LocalDate.now().plusDays(14));
+        record.setDueDate(LocalDate.now().plusDays(14));
         record.setReturnedDate(null);
         record.setStatus(BorrowStatus.ISSUED);
 
@@ -66,7 +67,43 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
     }
 
     @Override
+    @Transactional
     public boolean returnBook(Long borrowRecordId) {
-        return false;
+
+        System.out.println("Return method started for ID: " + borrowRecordId);
+
+        // 1. find the borrowing record
+        Optional<BorrowRecord> optionalRecord = borrowRecordRepository.findById(borrowRecordId);
+
+        // 2. check whether the record exists
+        if(optionalRecord.isEmpty()) {
+            return false;
+        }
+
+        // 3. record exists
+        BorrowRecord existingRecord = optionalRecord.get();
+
+        // 4. check whether book already returned
+        if(existingRecord.getStatus() == BorrowStatus.RETURNED) {
+            return false;
+        }
+
+        Book existingBook = existingRecord.getBook();
+
+        existingRecord.setStatus(BorrowStatus.RETURNED);
+        existingRecord.setReturnedDate(LocalDate.now());
+
+        existingBook.setAvailableCopies(
+                existingBook.getAvailableCopies() + 1
+        );
+
+        System.out.println("Before saving: " + existingRecord.getStatus());
+
+        bookRepository.save(existingBook);
+        borrowRecordRepository.save(existingRecord);
+
+        System.out.println("After saving: " + existingRecord.getStatus());
+
+        return true;
     }
 }
