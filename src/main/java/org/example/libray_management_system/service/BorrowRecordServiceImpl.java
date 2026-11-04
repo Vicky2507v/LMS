@@ -127,4 +127,16 @@ public class BorrowRecordServiceImpl implements BorrowRecordService {
         return borrowRecordRepository.findByBook_Id(bookId);
     }
 
+    public List<BorrowRecord> getCurrentIssuedBooks() {
+        return borrowRecordRepository.findByStatus(BorrowStatus.ISSUED);
+    }
+
+    public List<BorrowRecord> getCurrentReturnedBooks() {
+        return borrowRecordRepository.findByStatus(BorrowStatus.RETURNED);
+    }
+
+    public List<BorrowRecord> getOverdueBooks() {
+        return borrowRecordRepository.findByStatusAndDueDateBefore(BorrowStatus.ISSUED, LocalDate.now());
+    }
+
 }

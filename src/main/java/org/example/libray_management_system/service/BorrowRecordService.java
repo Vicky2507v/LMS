@@ -11,5 +11,8 @@ public interface BorrowRecordService {
     List<BorrowRecord> getAllBorrowRecord();
     List<BorrowRecord> getAllBorrowRecordByMemberId(Long memberId);
     List<BorrowRecord> getBorrowRecordsByBookId(Long bookId);
-
+    List<BorrowRecord> getCurrentIssuedBooks();
+    List<BorrowRecord> getCurrentReturnedBooks();
+    List<BorrowRecord> getOverdueBooks();
+//    List<BorrowRecord> getOverdueReturnedBooks();
 }

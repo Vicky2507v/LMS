@@ -1,6 +1,7 @@
 package org.example.libray_management_system.controller;
 
 import org.example.libray_management_system.entity.BorrowRecord;
+import org.example.libray_management_system.entity.BorrowStatus;
 import org.example.libray_management_system.service.BorrowRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,30 @@ public class BorrowRecordController {
     @GetMapping("/getBorrowRecordsByBook/{bookId}")
     public ResponseEntity<List<BorrowRecord>> getAllBorrowRecordByBookId(@PathVariable Long bookId) {
         List<BorrowRecord> records = borrowRecordService.getBorrowRecordsByBookId(bookId);
+        return ResponseEntity.ok(records);
+    }
+
+    @GetMapping("/getCurrentlyIssuedBook")
+    public ResponseEntity<List<BorrowRecord>> getCurrentlyIssuedBook() {
+
+        List<BorrowRecord> records = borrowRecordService.getCurrentIssuedBooks();
+
+        return ResponseEntity.ok(records);
+    }
+
+    @GetMapping("/getCurrentlyReturnedBook")
+    public ResponseEntity<List<BorrowRecord>> getCurrentReturnedBooks() {
+
+        List<BorrowRecord> records = borrowRecordService.getCurrentReturnedBooks();
+
+        return ResponseEntity.ok(records);
+    }
+
+    @GetMapping("/getOverdueBooks")
+    public ResponseEntity<List<BorrowRecord>> getOverdueBooks() {
+
+        List<BorrowRecord> records = borrowRecordService.getOverdueBooks();
+
         return ResponseEntity.ok(records);
     }
 }
