@@ -1,0 +1,42 @@
+{
+  "/books": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/getBooks*": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/deleteBy*": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/update*": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/addMember": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/getAllMember": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/getMember*": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  },
+  "/borrow": {
+    "target": "http://localhost:8585",
+    "secure": false,
+    "changeOrigin": true
+  }
+}

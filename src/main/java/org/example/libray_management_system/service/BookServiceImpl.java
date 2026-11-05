@@ -30,7 +30,7 @@ public class BookServiceImpl implements BookService {
                 book.getAvailableCopies() < 0 ||
                 book.getAvailableCopies() > book.getTotalCopies()) {
 
-            System.out.println("Invalid book copy details");
+            System.out.println("Enter a valid details");
             return false;
         }
 

@@ -1,5 +1,6 @@
 package org.example.libray_management_system.controller;
 
+import jakarta.validation.Valid;
 import org.example.libray_management_system.entity.Member;
 import org.example.libray_management_system.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ public class MemberController {
     private MemberService memberService;
 
     @PostMapping("/addMember")
-    public ResponseEntity<String> addNewMember(@RequestBody Member member){
+    public ResponseEntity<String> addNewMember(@Valid @RequestBody Member member) {
 
         boolean status = memberService.addMember(member);
 
         if(status) {
             return ResponseEntity.status(HttpStatus.CREATED).body("Member added successfully");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Member not added successfully");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Member not added, try again !!");
     }
 
     @GetMapping("/getAllMember")
@@ -89,15 +90,15 @@ public class MemberController {
 
     }
 
-    @PutMapping("/updateMemberById/{id}")
+    @PatchMapping("/updateMemberById/{id}")
     public ResponseEntity<String> updateById(@PathVariable Long id, @RequestBody Member member) {
 
         boolean status = memberService.updateById(id, member);
 
         if(status) {
-            return ResponseEntity.status(HttpStatus.OK).body("Member updated successfully");
+            return ResponseEntity.ok("Member updated successfully");
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Member not updated successfully");
+            return ResponseEntity.badRequest().body("Member not updated successfully");
         }
 
     }

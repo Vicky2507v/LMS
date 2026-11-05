@@ -25,7 +25,7 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.CREATED).body("Book added successfully");
         }
 
-        return ResponseEntity.badRequest().body("Invalid Book copy details");
+        return ResponseEntity.badRequest().body("can not add book, try again");
 
     }
 

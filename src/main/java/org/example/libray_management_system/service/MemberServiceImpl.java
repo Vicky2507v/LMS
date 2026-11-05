@@ -19,15 +19,17 @@ public class MemberServiceImpl implements MemberService {
 
     public boolean addMember(Member member) {
 
-        if(member.getName() == null || member.getPhone()==null || member.getName().isEmpty() == true) {
+        if(member.getName() == null || member.getPhone()==null || member.getEmail() == null ||
+                member.getName().isEmpty()) {
             return false;
         }
 
-        else if(member.getPhone().length()==10 && member.getEmail().contains("@")) {
-            memberRepository.save(member);
-            return true;
+        else if(member.getPhone().length()!=10 || ! member.getEmail().contains("@")) {
+            return false;
         }
-        return false;
+
+        memberRepository.save(member);
+        return true;
     }
 
     public List<Member> getMembers() {
@@ -104,12 +106,20 @@ public class MemberServiceImpl implements MemberService {
         Optional<Member> optionalMember = memberRepository.findById(id);
 
         if(optionalMember.isEmpty()) {
-            throw new MemberNotFoundException(
-                    "Member not found with id: " + id
-            );
+            throw new MemberNotFoundException("Member not found with id: " + id);
         }
 
         Member existingMember = optionalMember.get();
+
+        // if email is already exists then it is false
+        if(member.getEmail()!=null && memberRepository.existsByEmailAndIdNot(member.getEmail(), id)) {
+            return false;
+        }
+
+        // if phone number is already exists then it is false
+        if(member.getPhone()!=null && memberRepository.existsByPhoneAndIdNot(member.getPhone(), id)) {
+            return false;
+        }
 
         if(member.getEmail()!=null) {
             existingMember.setEmail(member.getEmail());
